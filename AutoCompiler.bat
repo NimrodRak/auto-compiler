@@ -46,7 +46,6 @@ for /f "tokens=1* delims==" %%i in (./compilation.config) do (
 		:: Go over each file in the folder
 		for %%f in (.\"!folder!"\*.lyx) do (
 			:: Check if it's really a ./lyx file
-			echo "%%f"
 			if "%%~xf"==".lyx" (
 				set "file=%%f"
 				:: Derive the name of the pdf file
