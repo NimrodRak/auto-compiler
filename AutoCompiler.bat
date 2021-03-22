@@ -18,7 +18,7 @@ for /f "tokens=1* delims==" %%i in (./compilation.config) do (
 		:: if config says not to run it
 		if not %%j==true (
 			echo Enabled property false. Exiting AutoCompiler...
-			goto end
+			goto END
 		)
 	) else (
 	:: Check if to parse engine property
@@ -28,7 +28,7 @@ for /f "tokens=1* delims==" %%i in (./compilation.config) do (
 		:: If no valid engine was found, exit the program
 		if not defined engine (
 			echo Engine property invalid. Exiting AutoCompiler...
-			goto end
+			goto END
 		)
 		echo Using %%j...
 	) else (
@@ -36,28 +36,29 @@ for /f "tokens=1* delims==" %%i in (./compilation.config) do (
 		if %%j==weak (
 			for /f  %%l in ('git rev-list --left-only --count origin/master...master') do if not %%l==0 (
 				echo Unmerged commits from remote repository available. Exiting AutoCompiler...
-				goto end
+				goto END
 			)
 		)
 	) else (
 		:: Declate the current folder
-		set folder=%%i
+		set "folder=%%i"
 		echo !folder!:
 		:: Go over each file in the folder
 		for %%f in (.\"!folder!"\*.lyx) do (
 			:: Check if it's really a ./lyx file
+			echo "%%f"
 			if "%%~xf"==".lyx" (
-				set file=%%f
+				set "file=%%f"
 				:: Derive the name of the pdf file
-				set pdf=!file:~0,-3!pdf
+				set "pdf=!file:~0,-3!pdf"
 				:: Check if the matching pdf exists
 				if exist !pdf! (
-					echo|set /p=Deleting !pdf!...
+					echo|set /p=Deleting "!pdf!"...
 					:: Delete the previous pdf if it exists
 					del "!pdf!"
 					echo. Done.
 				)
-				echo|set /p=Compiling !file!...
+				echo|set /p=Compiling "!file!"...
 				:: Export the .lyx file using xelatex
 				lyx --export !engine! "!file!"
 				echo. Done.

@@ -1,6 +1,5 @@
 # auto-compiler
-
-Compiles automatically all `.lyx` files in folders of `%UNI%\compilation.config`
+An automatic compiler that compiles your `.lyx` files according to your needs.
 
 ## Usage
  - Set your `UNI` environment variable to wherever your `.lyx` files are located.
@@ -17,8 +16,3 @@ A valid configuration file must include the following:
  - All the subfolders of `%UNI%` that you wish to have they LyX files in them compiled.
 ## Requirements
 Windows 10
-
-## Notes
-This program will compile your LyX files using `xelatex`, if your LyX files are compiled using `pdflatex`, change the `engine` variable in `compilation.config` to `pdflatex`. 
-
-If you wish to disable the program, change the `enabled` variable to `false`.
